@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PORT=2021
+OUTPUT_PATH="salida_server/"
 
 echo "(0) Server ABFP"
 
@@ -72,8 +73,10 @@ echo "(12) RESPONSE FILE_NAME ($NAME)"
 sleep 1
 echo "OK_FILE_NAME" | nc -q 1 $IP_CLIENT $PORT
 
+echo $OUTPUT_PATH$NAME
+
 echo "(13) LISTEN DATA"
 
-nc -l -p $PORT > archivo_entrada.vaca
+nc -l -p $PORT > $OUTPUT_PATH$NAME
 
 exit 0

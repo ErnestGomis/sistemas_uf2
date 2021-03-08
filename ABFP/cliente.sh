@@ -35,10 +35,14 @@ RESPONSE=`nc -l -p $PORT`
 
 echo "TEST HANDSHAKE RESPONSE"
 if [ "$RESPONSE" != "YES_IT_IS" ]; then
- echo "No se ha recibido correctamente el Handshake"
+ echo "ERROR: No se ha recibido correctamente el Handshake"
 
  exit 2
 fi
+
+FILE_NAME="vaca_salida.txt"
+
+FILE_MD5="`echo $FILE_NAME | md5sum | cut -d " " -f 1`"
 
 echo "(10) SENDING FILE_NAME"
 
@@ -46,7 +50,6 @@ sleep 1
 echo "FILE_NAME $FILE_NAME" | nc -q l $IP_SERVER $PORT
 
 echo "(11) LISTEN FILE_NAME RESPONSE"
-
 RESPONSE=`nc -l -p $PORT`
 
 echo "TEST FILE_NAME RESPONSE"
@@ -56,6 +59,9 @@ if [ "$RESPONSE" != "OK_FILE_NAME" ]; then
 
  exit 3
 fi
+
+sleep 1
+cat $FILE_NAME | nc -q 1 $IP_SERVER $PORT
 
 echo "(14) SENNDING DATA"
 
