@@ -1,15 +1,20 @@
 #!/bin/bash
 
+if [ "$1" == "" ]; then
+	IP_SERVIDOR="127.0.0.1"
+else 
+	IP_SERVIDOR="$1"
+fi
+
 PORT=2021
 
 IP_CLIENTE= "127.0.0.1"
-IP_SERVIDOR="127.0.0.1"
 
 FILE_NAME="archivo_salida.vaca"
 
 echo "Cliente de ABFP"
 
-echo "(2) SENDING HEADERS"
+echo "(2) SENDING HEADERS TO $IP_SERVIDOR"
 
 echo "ABFP $IP_CLIENTE" | nc -q 1 $IP_SERVIDOR $POR
 
